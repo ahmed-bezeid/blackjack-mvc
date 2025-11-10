@@ -6,24 +6,23 @@ package cartes;
 
 /**
  *
- * @author aissani231
+ * @author mezine221
  */
 public class Carte {
     private String valeur;
     private String couleur;
 
-    /**
-     * Crée une nouvelle carte avec la valeur et la couleur spécifiées.
-     * @param valeur La valeur de la carte (ex : "as", "roi", "10")
-     * @param couleur La couleur de la carte (ex : "pique", "cœur")
-     */
     public Carte(String valeur, String couleur) {
         this.valeur = valeur;
         this.couleur = couleur;
     }
 
+    public String getValeur() { return valeur; }
+    public String getCouleur() { return couleur; }
+
     @Override
     public String toString() {
-        return "Carte{valeur=" + valeur + ", couleur=" + couleur + "}";
+        return valeur + " de " + couleur;
     }
 }
+

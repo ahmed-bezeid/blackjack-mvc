@@ -4,43 +4,50 @@
  */
 package cartes;
 
+/**
+ *
+ * @author mezine221
+ */
+
+
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- *
- * @author aissani231
- */
-public class Paquet{
+
+public class Paquet {
     private List<Carte> cartes;
-    
-    public Paquet(){
+
+    public Paquet(boolean jeuComplet) {
         cartes = new ArrayList<>();
-    }
-    
-    public static List<Carte> allCartes(){
-        List<Carte> toutCartes = new ArrayList<>();
-        String[] valeurs = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "valet", "dame", "roi", "as"};
-        String[] couleurs = {"pique", "cœur", "carreau", "trèfle"};
-        
-        for (String couleur : couleurs) {
-            for (String valeur : valeurs) {
-                toutCartes.add(new Carte(valeur, couleur));
-            }
+        if (jeuComplet) {
+            String[] valeurs = {"2","3","4","5","6","7","8","9","10","valet","dame","roi","as"};
+            String[] couleurs = {"pique","trefle","carreau","coeur"};
+            for (String c : couleurs)
+                for (String v : valeurs)
+                    cartes.add(new Carte(v, c));
+            melanger();
         }
-        return toutCartes;
-    }
-    
-    public void melanger(){
-        Collections.shuffle(cartes);
-    }
-    
-    public void ajouterCartes(List<Carte> nouvellesCartes) {
-        cartes.addAll(nouvellesCartes);
     }
 
-    public List<Carte> getCartes() {
-        return cartes;
+    public void ajouter(Carte c) { cartes.add(c); }
+
+    public Carte piocher() {
+        if (cartes.isEmpty()) return null;
+        return cartes.remove(cartes.size() - 1);
+    }
+
+    public void melanger() {
+        Collections.shuffle(cartes);
+    }
+
+    public List<Carte> getCartes() { return cartes; }
+
+    @Override
+    public String toString() {
+        return cartes.toString();
     }
 }
+
+

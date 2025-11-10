@@ -4,14 +4,14 @@
  */
 package blackjack;
 
-import cartes.Carte;
+import blackjack.modele.JeuBlackJack;
+import blackjack.vue.VueSwing;
+import blackjack.controleur.ControleurBlackjack;
 
-/**
- *
- * @author aissani231
- */
 public class MainClass {
-    public static void main(String[] args){
-        System.out.println("dans BlackJack :"+ new Carte("as", "pique"));
+    public static void main(String[] args) {
+        JeuBlackJack modele = new JeuBlackJack();
+        VueSwing vue = new VueSwing(modele);           // ⚡ important : passer le modèle
+        ControleurBlackjack controleur = new ControleurBlackjack(modele, vue);
     }
 }

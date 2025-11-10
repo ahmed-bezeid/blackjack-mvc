@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/aissani231/Documents/L3/METHODES%20DE%20CONCEPTION/tp5/blackjack/src/blackjack/MainClass.java</file>
+            <file>file:/home/mezine221/Documents/projetCartes/blackjack/src/blackjack/MainClass.java</file>
+            <file>file:/home/mezine221/Documents/projetCartes/blackjack/src/blackjack/BlackJack.java</file>
+            <file>file:/home/mezine221/Documents/projetCartes/blackjack/src/blackjack/modele/JeuBlackJack.java</file>
+            <file>file:/home/mezine221/Documents/projetCartes/blackjack/build.xml</file>
+            <file>file:/home/mezine221/Documents/projetCartes/blackjack/src/blackjack/controleur/ControleurBlackjack.java</file>
+            <file>file:/home/mezine221/Documents/projetCartes/blackjack/src/blackjack/vue/VueSwing.java</file>
         </group>
     </open-files>
 </project-private>

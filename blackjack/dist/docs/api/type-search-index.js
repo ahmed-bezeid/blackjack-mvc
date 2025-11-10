@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"blackjack","l":"MainClass"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"blackjack","l":"BlackJack"},{"p":"blackjack.controleur","l":"ControleurBlackjack"},{"p":"blackjack.modele","l":"JeuBlackJack"},{"p":"blackjack","l":"MainClass"},{"p":"blackjack.vue","l":"VueSwing"}];updateSearchResults();

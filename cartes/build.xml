@@ -1,28 +1,28 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="cartes" default="run" basedir=".">
 
 
-    <property name="app.name"      value="cartes" />
-    <property name="app.version"   value="0.1"/>
-    <property name="app.fullname"   value="${app.name}-${app.version}"/>
-    <property name="build.home"    value="${basedir}/build"/>
-    <property name="build.test.home"    value="${basedir}/build/test"/>
+    <property name="app.name" value="cartes"/>
+    <property name="app.version" value="0.1"/>
+    <property name="app.fullname" value="${app.name}-${app.version}"/>
+    <property name="build.home" value="${basedir}/build"/>
+    <property name="build.test.home" value="${basedir}/build/test"/>
     
-    <property name="dist.home"     value="${basedir}/dist"/>
-    <property name="docs.home"     value="${basedir}/docs"/>
-    <property name="src.home"      value="${basedir}/src"/>
-    <property name="src.test.home"      value="${basedir}/test"/>
+    <property name="dist.home" value="${basedir}/dist"/>
+    <property name="docs.home" value="${basedir}/docs"/>
+    <property name="src.home" value="${basedir}/src"/>
+    <property name="src.test.home" value="${basedir}/test"/>
     <!--  <property name="test.report.home"      value="${basedir}/test/report"/> -->
-    <property name="test.report.home"      value="${basedir}/build/test/results"/>
-    <property name="lib.home"      value="${basedir}/lib"/>
-    <property name="javac.encoding"      value="UTF-8"/>
+    <property name="test.report.home" value="${basedir}/build/test/results"/>
+    <property name="lib.home" value="${basedir}/lib"/>
+    <property name="javac.encoding" value="UTF-8"/>
   
 
     <!-- ==================== Compile options =========================== -->
   
-    <property name="compile.debug"       value="true"/>
+    <property name="compile.debug" value="true"/>
     <property name="compile.deprecation" value="false"/>
-    <property name="compile.optimize"    value="true"/>
+    <property name="compile.optimize" value="true"/>
 
            
     <!-- ==================== Compilation Classpath =========================== -->
@@ -58,7 +58,7 @@
 
         <mkdir dir="${build.home}"/>
 
-        <mkdir dir="${build.test.home}" />
+        <mkdir dir="${build.test.home}"/>
 		
         <mkdir dir="${dist.home}"/>
 
@@ -73,13 +73,7 @@
 
     <target name="compile" depends="prepare" description="Compile Java sources">
 
-        <javac srcdir="${src.home}"
-               destdir="${build.home}"
-               debug="${compile.debug}"
-               deprecation="${compile.deprecation}"
-               optimize="${compile.optimize}"
-               encoding="${javac.encoding}"
-               includeantruntime="false">
+        <javac srcdir="${src.home}" destdir="${build.home}" debug="${compile.debug}" deprecation="${compile.deprecation}" optimize="${compile.optimize}" encoding="${javac.encoding}" includeantruntime="false">
            
             <classpath refid="compile.classpath"/>
    
@@ -112,7 +106,7 @@
     <target name="dist" depends="clean,compile,javadoc" description="Create binary distribution">
 		
 		
-        <copy  todir="${dist.home}/lib">
+        <copy todir="${dist.home}/lib">
             <fileset dir="${lib.home}"/>
         </copy>
 		
@@ -120,8 +114,7 @@
 
 		
         <!-- Create application JAR file -->
-        <jar jarfile="${dist.home}/${app.fullname}.jar"
-             basedir="${build.home}">
+        <jar jarfile="${dist.home}/${app.fullname}.jar" basedir="${build.home}">
             <manifest>
                 <attribute name="Main-Class" value="cartes.MainClass"/>
                 <!-- <attribute name="Class-Path" value="lib/utilsGL.jar" /> -->
@@ -129,7 +122,7 @@
         </jar>
 
         <!-- Attention : copie ad-hoc pour satisfaire immédiatement une mise à jour de dépendance, car le projet "blackjack" a besoin de cette librairie -->
-        <copy file="${dist.home}/${app.fullname}.jar" todir="${basedir}/../blackjack/lib" />
+        <copy file="${dist.home}/${app.fullname}.jar" todir="${basedir}/../blackjack/lib"/>
 
     </target>
   
@@ -142,9 +135,7 @@
         <mkdir dir="${dist.home}/docs/api"/>
 		
 		
-        <javadoc sourcepath="${src.home}"
-                 destdir="${dist.home}/docs/api"
-                 packagenames="*">
+        <javadoc sourcepath="${src.home}" destdir="${dist.home}/docs/api" packagenames="*">
 			
             <classpath>
                 <fileset dir="${lib.home}">
@@ -162,13 +153,13 @@
     <!-- ==================== Run Target ================================== -->
 	
     <target name="run" depends="dist">
-        <java jar="${dist.home}/${app.fullname}.jar" fork="true" />
+        <java jar="${dist.home}/${app.fullname}.jar" fork="true"/>
     </target>
 	
     <!-- ==================== Run English ================================== -->
 	
     <target name="run-english" depends="dist">
-        <java jar="${dist.home}/${app.fullname}.jar" fork="true" >
+        <java jar="${dist.home}/${app.fullname}.jar" fork="true">
             <jvmarg value="-Duser.language=en"/>
         </java>
     </target>
@@ -181,7 +172,7 @@
 
     <target name="test" depends="clean,compile,dist">
 
-        <junit fork="true"  printsummary="withOutAndErr" haltonfailure="false" showoutput="true" logfailedtests="true">
+        <junit fork="true" printsummary="withOutAndErr" haltonfailure="false" showoutput="true" logfailedtests="true">
 
             <classpath>
                 
@@ -194,7 +185,7 @@
 
         <formatter type="xml"/>
 
-            <batchtest   todir="${test.report.home}">
+            <batchtest todir="${test.report.home}">
             
                 <!--    
                     <fileset dir="${build.test.home}">
