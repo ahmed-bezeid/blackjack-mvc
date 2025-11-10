@@ -53,6 +53,32 @@ public class ControleurBlackjack {
                 tourCroupier();
             }
         });
+        vue.getNouvellePartieBtn().addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae) {
+                nouvellePartie();
+            }
+        });
+    }
+    
+    private void nouvellePartie(){
+        vue.afficherMessage("\n Nouvelle partie!");
+        
+        // recréer une nouvelle partie
+        modele = new JeuBlackJack();
+        
+        // reconnect la vue ao nouveau modele
+        vue.setModele(modele);
+        
+        // distribuer les cartes
+        modele.distribuer();   
+        
+        // reactive les boutons
+        vue.getTirerBtn().setEnabled(true);
+        vue.getResterBtn().setEnabled(true);
+        
+        //affiche un nouvel état
+        vue.afficherEtat();
+        
     }
 
     private void tourCroupier() {

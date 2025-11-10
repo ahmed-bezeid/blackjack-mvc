@@ -22,6 +22,7 @@ import java.util.List;
 public class VueSwing extends JFrame {
     private JButton tirerBtn = new JButton("Tirer");
     private JButton resterBtn = new JButton("Rester");
+    private JButton nouvellePartieBtn = new JButton("Nouvelle Partie");
     private JTextArea zoneTexte = new JTextArea(12, 35);
     private JeuBlackJack modele;
 
@@ -35,6 +36,7 @@ public class VueSwing extends JFrame {
         JPanel panelBtn = new JPanel();
         panelBtn.add(tirerBtn);
         panelBtn.add(resterBtn);
+        panelBtn.add(nouvellePartieBtn);
 
         zoneTexte.setEditable(false);
         JScrollPane scroll = new JScrollPane(zoneTexte);
@@ -48,6 +50,7 @@ public class VueSwing extends JFrame {
 
     public JButton getTirerBtn() { return tirerBtn; }
     public JButton getResterBtn() { return resterBtn; }
+    public JButton getNouvellePartieBtn() {return nouvellePartieBtn;}
 
     public void afficherEtat() {
         zoneTexte.setText("");
@@ -65,6 +68,10 @@ public class VueSwing extends JFrame {
         StringBuilder sb = new StringBuilder();
         for (Carte c : cartes) sb.append(c.toString()).append(", ");
         return sb.toString();
+    }
+
+    public void setModele(JeuBlackJack modele) {
+        this.modele = modele;
     }
 }
 
