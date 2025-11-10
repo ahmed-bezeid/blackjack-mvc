@@ -2,27 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package cartes;
+package cartes.modele;
 
 /**
  *
- * @author mezine221
+ * @author aissani231
  */
 public class Carte {
     private String valeur;
     private String couleur;
 
+    /**
+     * Crée une nouvelle carte avec la valeur et la couleur spécifiées.
+     * @param valeur La valeur de la carte (ex : "as", "roi", "10")
+     * @param couleur La couleur de la carte (ex : "pique", "cœur")
+     */
     public Carte(String valeur, String couleur) {
         this.valeur = valeur;
         this.couleur = couleur;
     }
 
-    public String getValeur() { return valeur; }
-    public String getCouleur() { return couleur; }
-
     @Override
     public String toString() {
-        return valeur + " de " + couleur;
+        return "Carte{valeur=" + valeur + ", couleur=" + couleur + "}";
     }
 }
-
