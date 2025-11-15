@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package cartes.modele;
 
 import cartes.util.AbstracteModelEcoutable;
@@ -11,21 +7,26 @@ import java.util.List;
 import java.util.Random;
 
 /**
- *
- * @author aissani231
+ * Représente un paquet de cartes, permettant de mélanger, piocher, ajouter et couper des cartes.
  */
-public class Paquet extends AbstracteModelEcoutable{
-    private List<Carte> cartes;
-    private Random rand = new Random();
-    public Paquet(){
-        cartes = new ArrayList<>();
+public class Paquet extends AbstracteModelEcoutable {
+    private final List<Carte> cartes;
+    private final Random rand;
+
+    public Paquet() {
+        this.cartes = new ArrayList<>();
+        this.rand = new Random();
     }
-    
-    public static List<Carte> allCartes(){
+
+    /**
+     * Crée une liste de toutes les cartes possibles (52 cartes).
+     * @return une liste de 52 cartes
+     */
+    public static List<Carte> allCartes() {
         List<Carte> toutCartes = new ArrayList<>();
         String[] valeurs = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "valet", "dame", "roi", "as"};
         String[] couleurs = {"pique", "cœur", "carreau", "trèfle"};
-        
+
         for (String couleur : couleurs) {
             for (String valeur : valeurs) {
                 toutCartes.add(new Carte(valeur, couleur));
@@ -33,54 +34,84 @@ public class Paquet extends AbstracteModelEcoutable{
         }
         return toutCartes;
     }
-    
-    public void melanger(){
+
+    /**
+     * Mélange les cartes du paquet.
+     */
+    public void melanger() {
         Collections.shuffle(cartes);
         fireChangement();
     }
-    
-    public void ajouterCartes(List<Carte> nouvellesCartes) {
-        cartes.addAll(nouvellesCartes);
+
+    /**
+     * Ajoute une liste de cartes au paquet.
+     * @param cartes32 la liste de cartes à ajouter
+     */
+    public void ajouterCartes(List<Carte> cartes32) {
+        cartes.addAll(cartes32);
         fireChangement();
     }
 
+    /**
+     * Ajoute une carte au paquet.
+     * @param c1 la carte à ajouter
+     */
+    public void ajouter(Carte c1) {
+        cartes.add(c1);
+        fireChangement();
+    }
+
+    /**
+     * Retourne une copie de la liste des cartes pour éviter les modifications externes.
+     * @return une copie de la liste des cartes
+     */
     public List<Carte> getCartes() {
-        return cartes;
+        return new ArrayList<>(cartes);
     }
-    
-    public void ajouterCarteAuDessus(Carte carte){
-        cartes.add(0, carte); // ajoute la carte à l'index 0, donc au début
+
+    /**
+     * Ajoute une carte au-dessus du paquet.
+     * @param carte la carte à ajouter
+     */
+    public void ajouterCarteAuDessus(Carte carte) {
+        cartes.add(0, carte);
         fireChangement();
     }
 
-    public void ajouterCarteEnDessous(Carte carte){
+    /**
+     * Ajoute une carte en dessous du paquet.
+     * @param carte la carte à ajouter
+     */
+    public void ajouterCarteEnDessous(Carte carte) {
         cartes.add(carte);
         fireChangement();
     }
 
-    public Carte tirerCarteAuHasard(){
+    /**
+     * Pioche une carte aléatoire du paquet.
+     * @return la carte piochée, ou null si le paquet est vide
+     */
+    public Carte piocher() {
         if (cartes.isEmpty()) {
             return null;
-        } 
-        int index = rand.nextInt(cartes.size());// indice aléatoire entre 0 et size-1
-        Carte c = cartes.remove(index);// remove retourne la carte enlevée
+        }
+        int index = rand.nextInt(cartes.size());
+        Carte c = cartes.remove(index);
         fireChangement();
         return c;
     }
 
+    /**
+     * Coupe le paquet en deux parties et les inverse.
+     */
     public void couperPaquet() {
-        if (cartes.size() < 7) return; // impossible de couper comme demandé
-
-        int pos = 3 + rand.nextInt(cartes.size() - 6); // position entre 3 et size-3 exclus
-
+        if (cartes.size() < 7) return;
+        int pos = 3 + rand.nextInt(cartes.size() - 6);
         List<Carte> haut = new ArrayList<>(cartes.subList(0, pos));
         List<Carte> bas = new ArrayList<>(cartes.subList(pos, cartes.size()));
-
         cartes.clear();
         cartes.addAll(bas);
         cartes.addAll(haut);
         fireChangement();
     }
-
-
 }

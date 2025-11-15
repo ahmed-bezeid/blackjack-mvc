@@ -1,41 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package cartes.Vue;
 
-import javax.swing.*;
-import java.awt.*;
 import cartes.modele.Paquet;
+import java.awt.*;
 
-/**
- *
- * @author aissani231@CAMPUS
- */
-public class VuePaquetCache extends JPanel implements cartes.util.EcouteurModele {
-    private Paquet paquet;
-    private final int hauteurParCarte = 5;
+public class VuePaquetCache extends VuePaquet {
+    private static final int LARGEUR_PAQUET = 40;
+    private static final int MARGE_LATERALE = 10;
+    private static final int MARGE_SUPERIEURE = 10;
+    private static final int HAUTEUR_PAR_CARTE = 5;
 
     public VuePaquetCache(Paquet paquet) {
-        this.paquet = paquet;
-        paquet.ajoutEcouteur(this);
-        setPreferredSize(new Dimension(60, paquet.getCartes().size() * hauteurParCarte));
+        super(paquet);
+        setOpaque(false);
+        mettreAJourDimension();
+    }
+
+    private void mettreAJourDimension() {
+        int hauteur = paquet.getCartes().size() * HAUTEUR_PAR_CARTE;
+        setPreferredSize(new Dimension(LARGEUR_PAQUET + 2 * MARGE_LATERALE, hauteur + 2 * MARGE_SUPERIEURE));
+    }
+
+    @Override
+    protected void afficher() {
+        // Pas besoin d'implémentation ici, car la mise à jour est gérée par paintComponent
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        int hauteur = paquet.getCartes().size() * hauteurParCarte;
-        g.setColor(Color.BLUE); // couleur du dos de la carte
-        g.fillRect(10, 10, 40, hauteur); // dessine un rectangle bleu (dos du paquet)
+        int hauteur = paquet.getCartes().size() * HAUTEUR_PAR_CARTE;
+        g.setColor(Color.BLUE);
+        g.fillRect(MARGE_LATERALE, MARGE_SUPERIEURE, LARGEUR_PAQUET, hauteur);
         g.setColor(Color.BLACK);
-        g.drawRect(10, 10, 40, hauteur);
+        g.drawRect(MARGE_LATERALE, MARGE_SUPERIEURE, LARGEUR_PAQUET, hauteur);
     }
 
+    @Override
     public void modeleMisAJour(Object source) {
-        setPreferredSize(new Dimension(60, paquet.getCartes().size() * hauteurParCarte));
-        revalidate();
-        repaint();
+        if (source == paquet) {
+            mettreAJourDimension();
+            revalidate();
+            repaint();
+        }
     }
 }
-

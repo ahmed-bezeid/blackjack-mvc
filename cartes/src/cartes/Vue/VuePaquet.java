@@ -1,32 +1,41 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package cartes.Vue;
 
-import cartes.modele.*;
-import cartes.util.*;
-
-import javax.swing.*;
+import cartes.modele.Paquet;
+import cartes.util.EcouteurModele;
+import javax.swing.JPanel;
 
 /**
- *
- * @author aissani231@CAMPUS
+ * Vue abstraite d'un paquet de cartes, se mettant à jour automatiquement
+ * lorsque le modèle change.
  */
 public abstract class VuePaquet extends JPanel implements EcouteurModele {
-    protected Paquet paquet;
 
+    /** Le paquet de cartes à afficher. */
+    public final Paquet paquet;
+
+    /**
+     * Crée une nouvelle vue pour le paquet donné.
+     * @param paquet le paquet de cartes à afficher
+     * @throws IllegalArgumentException si le paquet est null
+     */
     public VuePaquet(Paquet paquet) {
+        if (paquet == null) {
+            throw new IllegalArgumentException("Le paquet ne peut pas être null.");
+        }
         this.paquet = paquet;
-        paquet.ajoutEcouteur(this);  // abonnement aux changements du modèle
+        this.paquet.ajoutEcouteur(this);
     }
 
-    // méthode abstraite à implémenter dans les sous-classes pour afficher la vue
+    /**
+     * Méthode abstraite à implémenter pour afficher le paquet.
+     */
     protected abstract void afficher();
 
     @Override
     public void modeleMisAJour(Object source) {
-        afficher();
-        repaint();
+        if (source == paquet) {
+            afficher();
+            repaint();
+        }
     }
 }
