@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Factory {
 
-    private static final String[] COULEURS = {"pique", "cœur", "carreau", "trèfle"};
+    private static final String[] COULEURS = {"pique", "coeur", "carreau", "trefle"};
     private static final String[] VALEURS_52 = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "valet", "dame", "roi", "as"};
     private static final String[] VALEURS_32 = {"7", "8", "9", "10", "valet", "dame", "roi", "as"};
 
@@ -48,7 +48,7 @@ public class Factory {
      */
     private static List<Carte> genererCartes(String[] valeurs) {
     List<Carte> cartes = new ArrayList<>();
-    String[] couleurs = {"pique", "cœur", "carreau", "trèfle"};
+    String[] couleurs = {"pique", "coeur", "carreau", "trefle"};
     for (String couleur : couleurs) {
         for (String valeur : valeurs) {
             cartes.add(new Carte(valeur, couleur));

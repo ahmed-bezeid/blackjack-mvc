@@ -25,7 +25,7 @@ public class Paquet extends AbstracteModelEcoutable {
     public static List<Carte> allCartes() {
         List<Carte> toutCartes = new ArrayList<>();
         String[] valeurs = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "valet", "dame", "roi", "as"};
-        String[] couleurs = {"pique", "cœur", "carreau", "trèfle"};
+        String[] couleurs = {"pique", "coeur", "carreau", "trefle"};
 
         for (String couleur : couleurs) {
             for (String valeur : valeurs) {
@@ -84,6 +84,14 @@ public class Paquet extends AbstracteModelEcoutable {
      */
     public void ajouterCarteEnDessous(Carte carte) {
         cartes.add(carte);
+        fireChangement();
+    }
+
+    /**
+     * Vide le paquet de toutes ses cartes.
+     */
+    public void vider() {
+        cartes.clear();
         fireChangement();
     }
 

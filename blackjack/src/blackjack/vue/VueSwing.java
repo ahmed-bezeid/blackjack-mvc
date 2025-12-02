@@ -82,7 +82,11 @@ public class VueSwing extends JFrame {
         // Affiche les cartes du croupier (la première carte est cachée au début)
         List<Carte> cartesCroupier = modele.getMainCroupier().getCartes();
         if (modele.isCroupierCache()) {
-            zoneTexte.append("Croupier : [Carte cachée], " + cartesToString(cartesCroupier.subList(1, cartesCroupier.size())) + "\n");
+            if (cartesCroupier.size() > 1) {
+                zoneTexte.append("Croupier : [Carte cachée], " + cartesToString(cartesCroupier.subList(1, cartesCroupier.size())) + "\n");
+            } else {
+                zoneTexte.append("Croupier : [Carte cachée]\n");
+            }
         } else {
             zoneTexte.append("Croupier : " + cartesToString(cartesCroupier) +
                     " (total = " + modele.calculerValeur(modele.getMainCroupier()) + ")\n");
@@ -117,6 +121,9 @@ public class VueSwing extends JFrame {
     // Met à jour la vue lorsque le modèle change
     public void onJeuUpdate() {
         afficherEtat();
+        afficherMessage(modele.getStatus());
+        tirerBtn.setEnabled(!modele.estPartieTerminee());
+        resterBtn.setEnabled(!modele.estPartieTerminee());
         repaint();
     }
 }
