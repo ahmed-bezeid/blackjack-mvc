@@ -13,5 +13,6 @@ public class Controleur {
         vue.getTirerBtn().addActionListener(e -> modele.joueurTireCarte());
         vue.getResterBtn().addActionListener(e -> modele.joueurReste());
         vue.getNouvellePartieBtn().addActionListener(e -> modele.nouvellePartie());
+        vue.getQuitterBtn().addActionListener(e -> System.exit(0));
     }
 }
