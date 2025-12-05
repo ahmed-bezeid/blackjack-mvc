@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/mezine221/genie-logiciel-aissani-mezine-vieira-mohamed-el-mamy/blackjack/src/blackjack/BlackJack.java</file>
+            <file>file:/home/mezine221/genie-logiciel-aissani-mezine-vieira-mohamed-el-mamy/blackjack/src/blackjack/modele/JeuBlackJack.java</file>
+            <file>file:/home/mezine221/genie-logiciel-aissani-mezine-vieira-mohamed-el-mamy/blackjack/src/blackjack/vue/VueConsole.java</file>
+            <file>file:/home/mezine221/genie-logiciel-aissani-mezine-vieira-mohamed-el-mamy/blackjack/src/blackjack/controleur/ControleurConsole.java</file>
+            <file>file:/home/mezine221/genie-logiciel-aissani-mezine-vieira-mohamed-el-mamy/blackjack/src/blackjack/vue/CardView.java</file>
+            <file>file:/home/mezine221/genie-logiciel-aissani-mezine-vieira-mohamed-el-mamy/blackjack/src/blackjack/Main.java</file>
+            <file>file:/home/mezine221/genie-logiciel-aissani-mezine-vieira-mohamed-el-mamy/blackjack/src/blackjack/JeuBlackJackObserver.java</file>
+            <file>file:/home/mezine221/genie-logiciel-aissani-mezine-vieira-mohamed-el-mamy/blackjack/src/blackjack/controleur/Controleur.java</file>
+            <file>file:/home/mezine221/genie-logiciel-aissani-mezine-vieira-mohamed-el-mamy/blackjack/src/blackjack/vue/IVueBlackJack.java</file>
+            <file>file:/home/mezine221/genie-logiciel-aissani-mezine-vieira-mohamed-el-mamy/blackjack/src/blackjack/vue/VueSwing.java</file>
+        </group>
     </open-files>
 </project-private>

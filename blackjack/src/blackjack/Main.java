@@ -41,25 +41,18 @@ public class Main {
             SwingUtilities.invokeLater(() -> {
                 VueSwing vueSwing = new VueSwing(modele);
                 modele.setObserver(vueSwing);
+                // Le contrôleur SWING prend la responsabilité de lancer la partie
                 new Controleur(modele, vueSwing); 
                 vueSwing.onJeuUpdate(); 
             });
 
         } else if (mode.equals("2")) {
             // MODE CLAVIER / CONSOLE
-            System.out.println("Lancement de l'application BLACKJACK en mode CONSOLE (Clavier)...");
-
-        // 1. Création du Modèle
-         
-
-            // 2. Création de la Vue Console
+            System.out.println("\nLancement du mode Console (Clavier)...");
+            
             VueConsole vueConsole = new VueConsole(modele); 
-
-            // 3. Mise à jour du modèle avec la vue comme observateur
             modele.setObserver(vueConsole);
-
-            // 4. Lancement du Contrôleur Console (gère le clavier)
-            // Le Contrôleur prend la main et gère le reste de l'exécution
+            // Le contrôleur CONSOLE prend la responsabilité de lancer la partie
             new ControleurConsole(modele, vueConsole); 
         }
     }

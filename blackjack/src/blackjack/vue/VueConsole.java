@@ -1,17 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package blackjack.vue;
-
-/**
- *
- * @author mezine221
- */
-
-
-
-
 
 import blackjack.modele.JeuBlackJack;
 import cartes.modele.Carte;
@@ -34,29 +21,27 @@ public class VueConsole implements IVueBlackJack {
     public void onJeuUpdate() {
         clearConsole(); 
         
-        System.out.println("==================================================");
-        System.out.println("          BLACKJACK - CONSOLE (Clavier)         ");
-        System.out.println("==================================================");
+        System.out.println("╔═══════════════════════════════════════════════════════╗");
+        System.out.println("║ \u001B[34m♦️♣️ BLACKJACK - CONSOLE (Clavier) ♠️♥️\u001B[0m        ║"); 
+        System.out.println("╠═══════════════════════════════════════════════════════╣");
 
         afficherMainCroupier(modele.getMainCroupier(), modele.isCroupierCache());
-        System.out.println("--------------------------------------------------");
+        System.out.println("╟───────────────────────────────────────────────────────╢");
         afficherMainJoueur(modele.getMainJoueur());
-        System.out.println("--------------------------------------------------");
+        System.out.println("╚═══════════════════════════════════════════════════════╝");
         
         afficherStatus(modele.getStatus());
         
         if (!modele.estPartieTerminee()) {
             afficherOptions();
         } else {
-            System.out.println("\n(Entrez 'N' + Entrée pour une Nouvelle Partie)");
+            System.out.println("\n(Entrez 'N' pour commencer une nouvelle Partie ou Q pour Quitter)");
         }
-        
-        // AFFICHAGE DU PROMPT ICI, juste avant que le contrôleur n'attende la saisie
-        System.out.print("> "); 
+        System.out.print("» "); 
     }
 
     private void afficherMainCroupier(Paquet mainCroupier, boolean cache) {
-        System.out.print("🏦 CROUPIER : ");
+        System.out.print("║ 🏦 CROUPIER : ");
         List<Carte> cartesCroupier = mainCroupier.getCartes();
         
         if (cartesCroupier.isEmpty()) {
@@ -65,43 +50,44 @@ public class VueConsole implements IVueBlackJack {
         }
 
         if (cache) {
-            if (cartesCroupier.size() > 0) {
-                String premiereCarte = carteToString(cartesCroupier.get(0));
-                System.out.println(premiereCarte + " [*** CACHÉE ***]");
-            } else {
-                 System.out.println(" [*** CACHÉE ***]");
-            }
+            String premiereCarte = cartesCroupier.size() > 0 ? carteToString(cartesCroupier.get(0)) : "";
+            System.out.printf("%-40s ║\n", premiereCarte + " [CARTE CACHÉE]");
         } else {
             int total = modele.calculerValeur(mainCroupier);
-            System.out.println(cartesToString(cartesCroupier) + " (Total: " + total + ")");
+            String main = cartesToString(cartesCroupier);
+            System.out.printf("%-40s ║\n", main + " (Total: " + total + ")");
         }
     }
 
     private void afficherMainJoueur(Paquet mainJoueur) {
         int total = modele.calculerValeur(mainJoueur);
         List<Carte> cartesJoueur = mainJoueur.getCartes();
+        String main = cartesToString(cartesJoueur);
         
-        System.out.print("👤 VOUS     : " + cartesToString(cartesJoueur));
-        
+        String totalMsg;
         if (total > 21) {
-            System.out.println(" 💥 (Total: " + total + " - BRISÉ)");
+            totalMsg = "💥 BUST (" + total + ")";
         } else if (total == 21 && cartesJoueur.size() == 2) {
-             System.out.println(" ✨ (Total: BLACKJACK)");
+             totalMsg = "✨ BLACKJACK!";
         } else {
-            System.out.println(" (Total: " + total + ")");
+            totalMsg = "(Total: " + total + ")";
         }
+        
+        System.out.printf("║ 👤 VOUS     : %-40s ║\n", main + " " + totalMsg);
     }
     
     private void afficherOptions() {
-        System.out.println("\n❓ Que voulez-vous faire ?");
-        System.out.println(" [1] - Tirer (Prendre une autre carte)");
-        System.out.println(" [2] - Rester (Garder votre main)");
-        System.out.println(" [Q] - Quitter le jeu");
-        // Ligne de prompt enlevée d'ici pour la mettre à la fin de onJeuUpdate()
+        System.out.println("\n» Choisissez votre action :");
+        System.out.println(" [1] - Tirer");
+        System.out.println(" [2] - Rester");
+        System.out.println(" [Q] - Quitter");
     }
     
     private void afficherStatus(String msg) {
-        System.out.println("📢 Message : \u001B[33m" + msg + "\u001B[0m"); 
+        // Encadrement du message de statut pour le rendre plus visible
+        System.out.println("\n--- [ RÈGLE APPLIQUÉE ] ---"); 
+        System.out.println("\u001B[33m" + msg + "\u001B[0m"); 
+        System.out.println("---------------------------\n");
     }
     
     private String cartesToString(List<Carte> cartes) {

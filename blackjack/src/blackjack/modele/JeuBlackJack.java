@@ -15,18 +15,16 @@ public class JeuBlackJack {
     private boolean croupierCache;
     public String status; 
     private boolean joueurHasStood;
-    private boolean croupierHasStood;
 
     public JeuBlackJack() {
         this.pioche = Factory.creerPaquet52(true);
         this.mainJoueur = new Paquet();
         this.mainCroupier = new Paquet();
         this.observer = null;
-        this.status = "Bienvenue au Blackjack ! Entrez 'N' pour commencer une nouvelle partie.";
+        this.status = "Bienvenue au Blackjack ! Cliquez sur 'Nouvelle Partie' pour commencer.";
         this.partieTerminee = true;
         this.croupierCache = true;
         this.joueurHasStood = false;
-        this.croupierHasStood = false;
     }
 
     public void nouvellePartie() {
@@ -37,14 +35,13 @@ public class JeuBlackJack {
         partieTerminee = false;
         croupierCache = true;
         joueurHasStood = false;
-        croupierHasStood = false;
 
         mainJoueur.ajouter(pioche.piocher());
         mainCroupier.ajouter(pioche.piocher());
         mainJoueur.ajouter(pioche.piocher());
         mainCroupier.ajouter(pioche.piocher());
 
-        status = "À vous de jouer. Tirez une carte (1) ou restez (2).";
+        status = "C'est votre tour. Vous pouvez Tirer ou Rester.";
 
         if (calculerValeur(mainJoueur) == 21) {
             joueurReste();
@@ -71,11 +68,30 @@ public class JeuBlackJack {
 
         joueurHasStood = true;
         croupierCache = false; 
-        status = "Vous restez. Au tour du croupier.";
+        
+        // --- RÈGLE DU CROUPIER EN ÉTAPES VISIBLES ---
+        status = "Vous restez. Le Croupier révèle sa carte cachée.";
+        notifyObserver(); // 1. Affichage de la révélation
 
-        while (calculerValeur(mainCroupier) < 17) {
+        // Petite pause pour la visibilité
+        try { Thread.sleep(800); } catch (InterruptedException e) {}
+
+        int valeurActuelle = calculerValeur(mainCroupier);
+        
+        // Boucle de tirage (Règle: Tirer sur 16 ou moins)
+        while (valeurActuelle < 17) {
+            
+            status = "Le Croupier tire une carte car son total est inférieur à 17 (" + valeurActuelle + ").";
             mainCroupier.ajouter(pioche.piocher());
+            valeurActuelle = calculerValeur(mainCroupier);
+            notifyObserver(); // 2. Affichage de chaque carte tirée
+
+            // Pause pour l'observation
+            try { Thread.sleep(800); } catch (InterruptedException e) {}
         }
+        
+        // Fin du tour du Croupier
+        status = "Le Croupier s'arrête à " + valeurActuelle + ". La manche est résolue.";
 
         terminerPartie();
         notifyObserver();
@@ -87,7 +103,6 @@ public class JeuBlackJack {
         status = determinerGagnant();
     }
 
-    // NOUVELLE méthode surchargée : Calcule la valeur à partir d'une liste de Cartes
     public int calculerValeur(List<Carte> cartes) {
         int total = 0;
         int nbAs = 0;
@@ -118,31 +133,33 @@ public class JeuBlackJack {
         return total;
     }
 
-    // Méthode principale : Calcule la valeur à partir d'un Paquet
     public int calculerValeur(Paquet main) {
         return calculerValeur(main.getCartes());
     }
-    
+
     public String determinerGagnant() {
         int valeurJoueur = calculerValeur(mainJoueur);
         int valeurCroupier = calculerValeur(mainCroupier);
 
         if (valeurJoueur > 21) {
-            return "😭 Joueur brise (" + valeurJoueur + "). Le croupier gagne.";
+            return "DÉFAITE : Vous avez brisé (total de " + valeurJoueur + "). Le Croupier gagne.";
         }
         if (valeurCroupier > 21) {
-            return "🎉 Croupier brise (" + valeurCroupier + "). Le joueur gagne !";
+            return "VICTOIRE ! Le Croupier a brisé (total de " + valeurCroupier + ").";
         }
+        
         if (valeurJoueur == 21 && mainJoueur.getCartes().size() == 2) {
-             return "♠️ BLACKJACK ! Le joueur gagne (21) !";
+             return "BLACKJACK ! Vous gagnez avec un 21 naturel !";
         }
+
         if (valeurJoueur == valeurCroupier) {
-            return "🤝 Égalité / Push (" + valeurJoueur + ").";
+            return "ÉGALITÉ (Push) : Vous et le Croupier avez le même score (" + valeurJoueur + ").";
         }
+        
         if (valeurJoueur > valeurCroupier) {
-            return "🏆 Le joueur gagne (" + valeurJoueur + " contre " + valeurCroupier + ") !";
+            return "VICTOIRE ! Votre score de " + valeurJoueur + " bat le Croupier (" + valeurCroupier + ").";
         } else {
-            return "🏦 Le croupier gagne (" + valeurCroupier + " contre " + valeurJoueur + ").";
+            return "DÉFAITE : Le Croupier gagne avec " + valeurCroupier + " contre votre score de " + valeurJoueur + ".";
         }
     }
 
@@ -151,7 +168,7 @@ public class JeuBlackJack {
     public Paquet getMainJoueur() { return mainJoueur; }
     public Paquet getMainCroupier() { return mainCroupier; }
     public Paquet getPioche() { return pioche; }
-    public String getStatus() { return status; }
+    public String getStatus() { return status; } 
 
     private void notifyObserver() {
         if (observer != null) {

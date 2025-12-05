@@ -50,7 +50,7 @@ public class ControleurConsole {
                 if (input.equals("n") || input.equals("nouvelle partie")) {
                     modele.nouvellePartie();
                 } else {
-                    modele.status = "Partie terminée. Entrez 'N' pour commencer une nouvelle partie, ou 'Q' pour quitter.";
+                    modele.status = "Partie terminée. cliquer sur 'Nouvellepartie' pour commencer une nouvelle partie, ou 'Q' pour quitter.";
                     vue.onJeuUpdate(); 
                 }
                 continue;
