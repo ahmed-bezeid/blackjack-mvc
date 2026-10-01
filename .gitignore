@@ -1,0 +1,6 @@
+.vscode/
+*/build/
+*/dist/
+*/nbproject/private/
+*.jar
+*.class
