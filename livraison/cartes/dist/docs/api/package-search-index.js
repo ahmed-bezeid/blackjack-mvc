@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"cartes"},{"l":"cartes.controleur"},{"l":"cartes.modele"},{"l":"cartes.util"},{"l":"cartes.Vue"}];updateSearchResults();
